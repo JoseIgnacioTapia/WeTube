@@ -1,11 +1,17 @@
 import { useState } from 'react';
 import Results from './Results';
+import axios from 'axios';
 
 const SearchArea = () => {
   const [keyword, setKeyword] = useState('');
 
   const requestSearch = () => {
-    console.log('submitted');
+    axios
+      .get(
+        `https://youtube.googleapis.com/youtube/v3/search?type=video&q=budgies&part=snippet&maxResults=25&key=AIzaSyBBfx1QQxrIZxCNVRZyYr-X6Qco4We3fGI`
+      )
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
   };
 
   return (
