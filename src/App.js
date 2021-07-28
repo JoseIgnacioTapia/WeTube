@@ -1,9 +1,10 @@
 import SearchArea from './components/SearchArea';
+import Header from './components/Header';
 
 function App() {
   return (
     <>
-      <h1>WeTube</h1>
+      <Header />
       <SearchArea />
     </>
   );
