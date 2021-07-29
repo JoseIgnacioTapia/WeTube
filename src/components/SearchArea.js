@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import Results from './Results';
+import Spinner from './Spinner';
 import axios from 'axios';
 
 const SearchArea = () => {
   const [keyword, setKeyword] = useState('');
   const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const requestSearch = () => {
     axios
@@ -15,10 +17,12 @@ const SearchArea = () => {
         const { items } = res.data;
         console.log(items);
         setVideos(items);
+        setLoading(false);
       })
       .catch(err => console.log(err));
 
     setKeyword('');
+    setVideos([]);
   };
 
   return (
@@ -28,6 +32,7 @@ const SearchArea = () => {
         className="mt-5 mx-auto flex flex-col items-center justify-between"
         onSubmit={e => {
           e.preventDefault();
+          setLoading(true);
           requestSearch();
         }}
       >
@@ -49,7 +54,8 @@ const SearchArea = () => {
           Submit
         </button>
       </form>
-      <Results videos={videos} />
+      {loading && <Spinner />}
+      {videos.length > 0 ? <Results keyword={keyword} videos={videos} /> : null}
     </>
   );
 };

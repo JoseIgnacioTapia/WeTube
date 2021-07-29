@@ -1,8 +1,31 @@
+import { useState } from 'react';
 import Video from './Video';
+import styled from 'styled-components';
 
-const Results = ({ videos }) => {
+const Container = styled.div`
+  max-width: 80%;
+  margin: 1rem auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 0.5rem;
+`;
+
+const ResultTitle = styled.h3`
+  display: inline-block;
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 1rem 0;
+`;
+
+const Results = ({ keyword, videos }) => {
+  // const [searchWord, setSearchWord] = useState(keyword);
+
   return (
-    <div>
+    <Container>
+      <ResultTitle>Results: {keyword}</ResultTitle>
       {videos.map(video => {
         return (
           <Video
@@ -15,7 +38,7 @@ const Results = ({ videos }) => {
           />
         );
       })}
-    </div>
+    </Container>
   );
 };
 
