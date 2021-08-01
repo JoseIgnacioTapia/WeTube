@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Video from './Video';
 import styled from 'styled-components';
+
+import { SearchContext } from '../context/SearchContext';
 
 const Container = styled.div`
   max-width: 80%;
@@ -20,23 +22,14 @@ const ResultTitle = styled.h3`
   padding: 1rem 0;
 `;
 
-const Results = ({ keyword, videos }) => {
-  // const [searchWord, setSearchWord] = useState(keyword);
+const Results = () => {
+  const { keyword, videos } = useContext(SearchContext);
 
   return (
     <Container>
       <ResultTitle>Results: {keyword}</ResultTitle>
       {videos.map(video => {
-        return (
-          <Video
-            key={video.id.videoId}
-            title={video.snippet.title}
-            dateAdded={video.snippet.publishedAt}
-            channel={video.snippet.channelTitle}
-            thumbnails={video.snippet.thumbnails.medium}
-            description={video.snippet.description}
-          />
-        );
+        return <Video key={video.id.videoId} video={video} />;
       })}
     </Container>
   );

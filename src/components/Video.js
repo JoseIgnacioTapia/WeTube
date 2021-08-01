@@ -1,8 +1,13 @@
 import { formatDate } from '../helpers/formatDate';
 
-const Video = ({ title, dateAdded, channel, thumbnails, description }) => {
+const Video = ({ video }) => {
+  let title = video.snippet.title;
+  let dateAdded = video.snippet.publishedAt;
+  let channel = video.snippet.channelTitle;
+  let thumbnails = video.snippet.thumbnails.medium;
+  let description = video.snippet.description;
+
   const dateFormated = formatDate(dateAdded);
-  console.log(typeof dateFormated);
 
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg">
@@ -18,3 +23,11 @@ const Video = ({ title, dateAdded, channel, thumbnails, description }) => {
 };
 
 export default Video;
+
+// { title, dateAdded, channel, thumbnails, description }
+
+// title={video.snippet.title}
+// dateAdded={video.snippet.publishedAt}
+// channel={video.snippet.channelTitle}
+// thumbnails={video.snippet.thumbnails.medium}
+// description={video.snippet.description}
