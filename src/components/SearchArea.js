@@ -11,7 +11,7 @@ const SearchArea = () => {
   const requestSearch = () => {
     axios
       .get(
-        `https://youtube.googleapis.com/youtube/v3/search?type=video&q=${keyword}&part=snippet&maxResults=25&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+        `https://youtube.googleapis.com/youtube/v3/search?type=video&q=${keyword}&part=snippet&maxResults=24&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
       )
       .then(res => {
         const { items } = res.data;
