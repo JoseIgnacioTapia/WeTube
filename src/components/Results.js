@@ -27,7 +27,7 @@ const Results = () => {
 
   return (
     <Container>
-      <ResultTitle>Results: {keyword}</ResultTitle>
+      <ResultTitle>Results ({keyword}):</ResultTitle>
       {videos.map(video => {
         return <Video key={video.id.videoId} video={video} />;
       })}

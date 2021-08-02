@@ -7,7 +7,7 @@ const SearchArea = () => {
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const { videos, setKeyword, error } = useContext(SearchContext);
+  const { setKeyword, setLooking } = useContext(SearchContext);
 
   return (
     <>
@@ -18,6 +18,7 @@ const SearchArea = () => {
           e.preventDefault();
           setLoading(true);
           setKeyword(search);
+          setLooking(true);
         }}
       >
         <label
