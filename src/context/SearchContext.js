@@ -40,6 +40,7 @@ const SearchProvider = props => {
         setVideos,
         error,
         setLooking,
+        looking,
       }}
     >
       {props.children}

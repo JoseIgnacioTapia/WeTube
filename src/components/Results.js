@@ -23,11 +23,11 @@ const ResultTitle = styled.h3`
 `;
 
 const Results = () => {
-  const { keyword, videos } = useContext(SearchContext);
+  const { keyword, videos, looking } = useContext(SearchContext);
 
   return (
     <Container>
-      <ResultTitle>Results ({keyword}):</ResultTitle>
+      {looking && <ResultTitle>Results ({keyword}):</ResultTitle>}
       {videos.map(video => {
         return <Video key={video.id.videoId} video={video} />;
       })}
