@@ -26,16 +26,21 @@ const ResultTitle = styled.h3`
 const Results = () => {
   const { keyword, videos, looking, loading } = useContext(SearchContext);
 
+  const displayResult =
+    looking && videos.length === 0 ? (
+      <div className="text-red-700 px-4 py-3 border border-red-400 rounded ">
+        No results found. Try another search please!
+      </div>
+    ) : (
+      videos.map(video => {
+        return <Video key={video.id.videoId} video={video} />;
+      })
+    );
+
   return (
     <Container>
       {looking && <ResultTitle>Results ({keyword}):</ResultTitle>}
-      {loading ? (
-        <Spinner />
-      ) : (
-        videos.map(video => {
-          return <Video key={video.id.videoId} video={video} />;
-        })
-      )}
+      {loading ? <Spinner /> : displayResult}
     </Container>
   );
 };
