@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react';
 import Video from './Video';
+import Spinner from './Spinner';
 import styled from 'styled-components';
 
 import { SearchContext } from '../context/SearchContext';
@@ -23,14 +24,18 @@ const ResultTitle = styled.h3`
 `;
 
 const Results = () => {
-  const { keyword, videos, looking } = useContext(SearchContext);
+  const { keyword, videos, looking, loading } = useContext(SearchContext);
 
   return (
     <Container>
       {looking && <ResultTitle>Results ({keyword}):</ResultTitle>}
-      {videos.map(video => {
-        return <Video key={video.id.videoId} video={video} />;
-      })}
+      {loading ? (
+        <Spinner />
+      ) : (
+        videos.map(video => {
+          return <Video key={video.id.videoId} video={video} />;
+        })
+      )}
     </Container>
   );
 };

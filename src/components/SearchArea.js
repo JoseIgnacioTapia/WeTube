@@ -1,11 +1,8 @@
 import { useState, useContext } from 'react';
 import { SearchContext } from '../context/SearchContext';
-import Results from './Results';
-import Spinner from './Spinner';
 
 const SearchArea = () => {
   const [search, setSearch] = useState('');
-  const [loading, setLoading] = useState(false);
 
   const { setKeyword, setLooking } = useContext(SearchContext);
 
@@ -16,7 +13,6 @@ const SearchArea = () => {
         className="mt-5 mx-auto flex flex-col items-center justify-between"
         onSubmit={e => {
           e.preventDefault();
-          setLoading(true);
           setKeyword(search);
           setLooking(true);
         }}
