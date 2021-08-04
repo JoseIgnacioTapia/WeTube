@@ -1,4 +1,6 @@
+import Modal from './Modal';
 import { formatDate } from '../helpers/formatDate';
+import { useModal } from '../hooks/useModal';
 
 const Video = ({ video }) => {
   let title = video.snippet.title;
@@ -9,6 +11,8 @@ const Video = ({ video }) => {
 
   const dateFormated = formatDate(dateAdded);
 
+  const [isOpen, openModal, closeModal] = useModal(false);
+
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg">
       <img className="w-full" src={thumbnails.url} alt={title} />
@@ -17,13 +21,15 @@ const Video = ({ video }) => {
         <small className="italic text-sm">{dateFormated}</small>
         <div className="flex justify-between items-center	my-4">
           <h3 className="text-sm	 py-2">{channel}</h3>
-          <button class="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">
+          <button
+            className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-indigo-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"
+            onClick={openModal}
+          >
             Watch Video
           </button>
         </div>
-        {/* 
-        <p className="text-base text-gray-500">{description}</p> */}
       </div>
+      <Modal isOpen={isOpen} openModal={openModal} closeModal={closeModal} />
     </div>
   );
 };

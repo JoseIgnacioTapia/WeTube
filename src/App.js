@@ -3,7 +3,6 @@ import Header from './components/Header';
 import Results from './components/Results';
 
 import SearchProvider from './context/SearchContext';
-import Modal from './components/Modal';
 
 function App() {
   return (
@@ -11,7 +10,6 @@ function App() {
       <Header />
       <SearchArea />
       <Results />
-      <Modal />
     </SearchProvider>
   );
 }
