@@ -1,6 +1,10 @@
 import Modal from './Modal';
 import { formatDate } from '../helpers/formatDate';
 import { useModal } from '../hooks/useModal';
+import TimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locale/en';
+
+TimeAgo.addDefaultLocale(en);
 
 const Video = ({ video }) => {
   let title = video.snippet.title;
@@ -9,7 +13,9 @@ const Video = ({ video }) => {
   let thumbnails = video.snippet.thumbnails.medium;
   let description = video.snippet.description;
 
-  const dateFormated = formatDate(dateAdded);
+  // const dateFormated = formatDate(dateAdded);
+  const timeAgo = new TimeAgo('en-us');
+  const date = new Date(dateAdded);
 
   const [isOpen, openModal, closeModal] = useModal(false);
 
@@ -18,7 +24,9 @@ const Video = ({ video }) => {
       <img className="w-full" src={thumbnails.url} alt={title} />
       <div className="px-4 py-2">
         <h2 className="font-bold">{title}</h2>
-        <small className="italic text-sm">{dateFormated}</small>
+        <small className="italic text-sm font-bold">
+          {timeAgo.format(date)}
+        </small>
         <div className="flex justify-between items-center	my-4">
           <h3 className="text-sm	 py-2">{channel}</h3>
           <button
