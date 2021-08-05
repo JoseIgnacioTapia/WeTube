@@ -3,13 +3,16 @@ import Header from './components/Header';
 import Results from './components/Results';
 
 import SearchProvider from './context/SearchContext';
+import VideoProvider from './context/VideoContext';
 
 function App() {
   return (
     <SearchProvider>
-      <Header />
-      <SearchArea />
-      <Results />
+      <VideoProvider>
+        <Header />
+        <SearchArea />
+        <Results />
+      </VideoProvider>
     </SearchProvider>
   );
 }
