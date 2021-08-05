@@ -15,6 +15,7 @@ const SearchArea = () => {
           e.preventDefault();
           setKeyword(search);
           setLooking(true);
+          setSearch('');
         }}
       >
         <label

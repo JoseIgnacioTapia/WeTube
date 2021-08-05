@@ -20,9 +20,6 @@ const SearchProvider = props => {
         try {
           setLoading(true);
           const res = await axios.get(url);
-          console.log(res);
-          console.log(url);
-          console.log(res.data.items);
           setVideos(res.data.items);
         } catch (error) {
           setVideos(null);
