@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { SearchContext } from '../context/SearchContext';
 import styled from 'styled-components';
 
 const Label = styled.label`
@@ -22,8 +23,8 @@ export const useDropdown = (label, initialState, options) => {
       <select
         id={id}
         value={optionSelected}
-        onChange={e => e.target.value}
-        onBlur={e => e.target.value}
+        onChange={e => setOptionSelected(e.target.value)}
+        onBlur={e => setOptionSelected(e.target.value)}
       >
         {options.map(option => (
           <option value={option} key={option}>
