@@ -1,11 +1,23 @@
 import { useState } from 'react';
+import styled from 'styled-components';
 
-const useDropdown = (label, initialState, options) => {
+const Label = styled.label`
+  margin-bottom: 1rem;
+
+  > select {
+    margin-left: 1rem;
+    background-color: #e7e1ce;
+    border: solid 1px #333;
+    border-radius: 5px;
+  }
+`;
+
+export const useDropdown = (label, initialState, options) => {
   const [optionSelected, setOptionSelected] = useState(initialState);
   const id = `use-dropwdown-${label.replace(' ', '').toLowerCase()}`;
 
   const Dropdown = () => (
-    <label htmlFor={id}>
+    <Label htmlFor={id}>
       {label}
       <select
         id={id}
@@ -19,10 +31,8 @@ const useDropdown = (label, initialState, options) => {
           </option>
         ))}
       </select>
-    </label>
+    </Label>
   );
 
-  return [optionSelected, setOptionSelected, Dropdown];
+  return [optionSelected, Dropdown, setOptionSelected];
 };
-
-export default useDropdown;

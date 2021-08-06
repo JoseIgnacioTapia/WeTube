@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { SearchContext } from '../context/SearchContext';
-import useDropdown from '../hooks/useDropdown';
+import { useDropdown } from '../hooks/useDropdown';
 import styled from 'styled-components';
 
 const AdvanceContainer = styled.div`
@@ -53,6 +53,7 @@ const SearchArea = () => {
           <label htmlFor="advanced">Advanced Search</label>
           <input type="checkbox" id="advanced" />
         </AdvanceContainer>
+        <Dropdown />
 
         <button className="w-full bg-indigo-600 text-white p-2 rounded-md mb-4">
           Submit
