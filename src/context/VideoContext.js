@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext, Children } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import axios from 'axios';
 
 // Creating Custom Context
@@ -27,7 +27,7 @@ const VideoProvider = props => {
 
       displayVideo();
     }
-  }, [idVideo]);
+  }, [idVideo, consulting]);
 
   return (
     <VideoContext.Provider

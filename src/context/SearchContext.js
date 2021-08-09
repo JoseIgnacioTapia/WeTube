@@ -33,7 +33,7 @@ const SearchProvider = props => {
       };
       getVideos();
     }
-  }, [keyword, order, videoDuration]);
+  }, [keyword, order, videoDuration, looking]);
 
   return (
     <SearchContext.Provider

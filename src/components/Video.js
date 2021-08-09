@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import Modal from './Modal';
-import { formatDate } from '../helpers/formatDate';
 import { useModal } from '../hooks/useModal';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
@@ -15,7 +14,6 @@ const Video = ({ video }) => {
   let channel = video.snippet.channelTitle;
   let thumbnails = video.snippet.thumbnails.medium;
   let id = video.id.videoId;
-  let description = video.snippet.description;
 
   // const dateFormated = formatDate(dateAdded);
   const timeAgo = new TimeAgo('en-us');

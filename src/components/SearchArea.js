@@ -13,7 +13,7 @@ const AdvanceContainer = styled.div`
 const SearchArea = () => {
   const [search, setSearch] = useState('');
 
-  const { setKeyword, setOrder, setVideoDuration, looking, setLooking } =
+  const { setKeyword, setOrder, setVideoDuration, setLooking } =
     useContext(SearchContext);
 
   const orderList = ['date', 'relevance', 'rating'];

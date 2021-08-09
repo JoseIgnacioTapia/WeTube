@@ -1,5 +1,4 @@
-import { useState, useContext } from 'react';
-import { SearchContext } from '../context/SearchContext';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 const Label = styled.label`

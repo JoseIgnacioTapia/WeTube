@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import Video from './Video';
 import Spinner from './Spinner';
 import styled from 'styled-components';
