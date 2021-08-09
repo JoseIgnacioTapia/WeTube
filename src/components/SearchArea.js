@@ -1,10 +1,40 @@
-import { useState, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { SearchContext } from '../context/SearchContext';
+import { useDropdown } from '../hooks/useDropdown';
+import styled from 'styled-components';
+
+const AdvanceContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 0.5rem;
+`;
 
 const SearchArea = () => {
   const [search, setSearch] = useState('');
 
-  const { setKeyword, setLooking } = useContext(SearchContext);
+  const { setKeyword, setOrder, setVideoDuration, looking, setLooking } =
+    useContext(SearchContext);
+
+  const orderList = ['date', 'relevance', 'rating'];
+  const [order, OrderDropdown, setOrderDropdown] = useDropdown(
+    'Order By',
+    'relevance',
+    orderList
+  );
+
+  const [videoDuration, VideoDurationDropdown, setVideoDropdown] = useDropdown(
+    'Video Duration',
+    'any',
+    ['any', 'short', 'medium', 'long']
+  );
+
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    setOrder(order);
+    setVideoDuration(videoDuration);
+  }, [order, videoDuration]);
 
   return (
     <>
@@ -32,6 +62,24 @@ const SearchArea = () => {
           placeholder="Keywords"
           onChange={e => setSearch(e.target.value)}
         />
+        <AdvanceContainer>
+          <label htmlFor="advanced">Advanced Search</label>
+          <input
+            type="checkbox"
+            id="advanced"
+            checked={checked}
+            onChange={() => {
+              setChecked(!checked);
+            }}
+          />
+        </AdvanceContainer>
+        {checked ? (
+          <>
+            <OrderDropdown />
+            <VideoDurationDropdown />
+          </>
+        ) : null}
+
         <button className="w-full bg-indigo-600 text-white p-2 rounded-md mb-4">
           Submit
         </button>
