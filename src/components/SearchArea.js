@@ -1,29 +1,40 @@
-import { useState } from 'react';
-import Results from './Results';
-import Spinner from './Spinner';
-import axios from 'axios';
+import { useState, useEffect, useContext } from 'react';
+import { SearchContext } from '../context/SearchContext';
+import { useDropdown } from '../hooks/useDropdown';
+import styled from 'styled-components';
+
+const AdvanceContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 0.5rem;
+`;
 
 const SearchArea = () => {
-  const [keyword, setKeyword] = useState('');
-  const [videos, setVideos] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState('');
 
-  const requestSearch = () => {
-    axios
-      .get(
-        `https://youtube.googleapis.com/youtube/v3/search?type=video&q=${keyword}&part=snippet&maxResults=24&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
-      )
-      .then(res => {
-        const { items } = res.data;
-        console.log(items);
-        setVideos(items);
-        setLoading(false);
-      })
-      .catch(err => console.log(err));
+  const { setKeyword, setOrder, setVideoDuration, setLooking } =
+    useContext(SearchContext);
 
-    setKeyword('');
-    setVideos([]);
-  };
+  const orderList = ['date', 'relevance', 'rating'];
+  const [order, OrderDropdown, setOrderDropdown] = useDropdown(
+    'Order By',
+    'relevance',
+    orderList
+  );
+
+  const [videoDuration, VideoDurationDropdown] = useDropdown(
+    'Video Duration',
+    'any',
+    ['any', 'short', 'medium', 'long']
+  );
+
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    setOrder(order);
+    setVideoDuration(videoDuration);
+  }, [order, videoDuration]);
 
   return (
     <>
@@ -32,8 +43,9 @@ const SearchArea = () => {
         className="mt-5 mx-auto flex flex-col items-center justify-between"
         onSubmit={e => {
           e.preventDefault();
-          setLoading(true);
-          requestSearch();
+          setKeyword(search);
+          setLooking(true);
+          setSearch('');
         }}
       >
         <label
@@ -46,16 +58,32 @@ const SearchArea = () => {
           type="text"
           className="w-full text-center py-2 border mt-3 border-gray-300 rounded-md mb-4"
           id="keyword"
-          value={keyword}
+          value={search}
           placeholder="Keywords"
-          onChange={e => setKeyword(e.target.value)}
+          onChange={e => setSearch(e.target.value)}
         />
+        <AdvanceContainer>
+          <label htmlFor="advanced">Advanced Search</label>
+          <input
+            type="checkbox"
+            id="advanced"
+            checked={checked}
+            onChange={() => {
+              setChecked(!checked);
+            }}
+          />
+        </AdvanceContainer>
+        {checked ? (
+          <>
+            <OrderDropdown />
+            <VideoDurationDropdown />
+          </>
+        ) : null}
+
         <button className="w-full bg-indigo-600 text-white p-2 rounded-md mb-4">
           Submit
         </button>
       </form>
-      {loading && <Spinner />}
-      {videos.length > 0 ? <Results keyword={keyword} videos={videos} /> : null}
     </>
   );
 };

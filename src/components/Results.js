@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import Video from './Video';
+import Spinner from './Spinner';
 import styled from 'styled-components';
+
+import { SearchContext } from '../context/SearchContext';
 
 const Container = styled.div`
   max-width: 80%;
@@ -20,24 +23,24 @@ const ResultTitle = styled.h3`
   padding: 1rem 0;
 `;
 
-const Results = ({ keyword, videos }) => {
-  // const [searchWord, setSearchWord] = useState(keyword);
+const Results = () => {
+  const { keyword, videos, looking, loading } = useContext(SearchContext);
+
+  const displayResult =
+    looking && videos.length === 0 ? (
+      <div className="text-red-700 px-4 py-3 border border-red-400 rounded ">
+        No results found. Try another search please!
+      </div>
+    ) : (
+      videos.map(video => {
+        return <Video key={video.id.videoId} video={video} />;
+      })
+    );
 
   return (
     <Container>
-      <ResultTitle>Results: {keyword}</ResultTitle>
-      {videos.map(video => {
-        return (
-          <Video
-            key={video.id.videoId}
-            title={video.snippet.title}
-            dateAdded={video.snippet.publishedAt}
-            channel={video.snippet.channelTitle}
-            thumbnails={video.snippet.thumbnails.medium}
-            description={video.snippet.description}
-          />
-        );
-      })}
+      {looking && <ResultTitle>Results ({keyword}):</ResultTitle>}
+      {loading ? <Spinner /> : displayResult}
     </Container>
   );
 };
